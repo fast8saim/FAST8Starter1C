@@ -80,16 +80,16 @@ class MainFrame(wx.Frame):
 
     def create_label(self, label):
         new_label = wx.StaticText(self.panel, label=label)
-        self.vbox.Add(new_label, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, border=2)
+        self.vbox.Add(new_label, flag=wx.ALL, border=1)
 
     def create_button(self, label, procedure):
-        new_button = wx.Button(self.panel, label=label, size=(70, 30))
-        self.vbox.Add(new_button, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, border=2)
+        new_button = wx.Button(self.panel, label=label, size=(200, 25))
+        self.vbox.Add(new_button, flag=wx.ALL, border=1)
         new_button.Bind(wx.EVT_BUTTON, procedure)
 
     def __init__(self, parent, title):
         super().__init__(parent, title=title, style=wx.RESIZE_BORDER | wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX,
-                         size=(500, 610))
+                         size=(500, 530))
 
         self.panel = wx.Panel(self)
         self.vbox = wx.BoxSizer(wx.VERTICAL)
@@ -113,17 +113,28 @@ class MainFrame(wx.Frame):
         self.create_label("Прочее")
         self.create_button("Очистить кэш метаданных", run_clear_cache)
         self.create_button("Создать чистую базу", run_make_clean_base)
-        self.create_button("Найти файловые базы на компьютере", run_find_local_file_bases)
+        self.create_button("Найти файловые базы", run_find_local_file_bases)
         self.create_button("Очистить весь локальный кэш", run_clear_all_cache)
 
-        self.panel.SetSizer(self.vbox)
+        self.hbox = wx.BoxSizer(wx.HORIZONTAL)
+
+        self.list_bases = wx.ListBox(self.panel, size=(100, 485))
+        self.hbox.Add(self.list_bases, flag=wx.ALL, border=1, proportion=1)
+        self.hbox.Add(self.vbox, flag=wx.ALL, border=1)
+        self.panel.SetSizer(self.hbox)
 
 
-def create_main_window():
+def create_main_window(bases_list):
     app = wx.App()
 
     frame = MainFrame(None, 'FAST8 STARTER 1C')
     frame.Centre()
     frame.Show()
+
+    for item in bases_list:
+        frame.list_bases.Append(item['name'])
+
+    # из буфера обмена
+    # cb = root.clipboard_get()
 
     app.MainLoop()

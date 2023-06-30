@@ -8,7 +8,7 @@ def find_platform():
     for root, dirs, files in os.walk(path):
         for file in files:
             if file.endswith("1cv8.exe"):
-                path_file = os.path.join(root,file)
+                path_file = os.path.join(root, file)
                 print(path_file)
 
 
