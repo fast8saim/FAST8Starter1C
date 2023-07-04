@@ -89,7 +89,7 @@ class MainFrame(wx.Frame):
 
     def __init__(self, parent, title):
         super().__init__(parent, title=title, style=wx.RESIZE_BORDER | wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX,
-                         size=(500, 530))
+                         size=(600, 530))
 
         self.panel = wx.Panel(self)
         self.vbox = wx.BoxSizer(wx.VERTICAL)
@@ -118,8 +118,9 @@ class MainFrame(wx.Frame):
 
         self.hbox = wx.BoxSizer(wx.HORIZONTAL)
 
-        #self.list_bases = wx.ListBox(self.panel, size=(100, 485))
-        self.list_bases = wx.ListCtrl(self.panel, -1, style=wx.LC_ICON | wx.LC_AUTOARRANGE, size=(100, 485))
+        self.list_bases = wx.ListCtrl(self.panel, -1, style=wx.LC_REPORT, size=(100, 485))
+        self.list_bases.InsertColumn(0, 'Базы')
+        self.list_bases.SetColumnWidth(0, 360)
 
         self.hbox.Add(self.list_bases, flag=wx.ALL, border=1, proportion=1)
         self.hbox.Add(self.vbox, flag=wx.ALL, border=1)
@@ -134,7 +135,7 @@ def create_main_window(bases_list):
     frame.Show()
 
     for item in bases_list:
-        frame.list_bases.InsertItem(bases_list.index(item), item['name'])
+        frame.list_bases.InsertItem(bases_list.index(item), item.name)
 
     # из буфера обмена
     # cb = root.clipboard_get()
