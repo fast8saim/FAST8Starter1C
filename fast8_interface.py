@@ -1,5 +1,6 @@
 # fast8_interface
 
+import flet as ft
 import wx
 import subprocess
 
