@@ -1,5 +1,3 @@
-# fast8_file_system.py
-
 import os
 
 

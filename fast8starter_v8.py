@@ -1,5 +1,3 @@
-# fast8_engine_v8.py
-
 import os
 
 

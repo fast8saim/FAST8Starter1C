@@ -1,9 +1,7 @@
-# fast8_interface
-
 import flet as ft
 import subprocess
-import fast8_file_system
-import fast8_engine_v8
+import fast8starter_system
+import fast8starter_v8
 
 def run_thin_client(event):
     subprocess.Popen('C:\\Windows\\System32\\calc.exe')
@@ -88,7 +86,7 @@ def main_frame(page: ft.Page):
     def create_button(label, procedure):
         return ft.ElevatedButton(text=label, on_click=procedure)
 
-    bases_list = fast8_engine_v8.parse_ibases(fast8_file_system.get_ibases_content())
+    bases_list = fast8starter_v8.parse_ibases(fast8starter_system.get_ibases_content())
 
     bases_column = ft.Column()
     buttons_column = ft.Column()
@@ -143,6 +141,9 @@ def main_frame(page: ft.Page):
 
     page.update()
     """
+    # из буфера обмена
+    # cb = root.clipboard_get()
+    
     def __init__(self, parent, title):
         super().__init__(parent, title=title, style=wx.RESIZE_BORDER | wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX,
                          size=(600, 530))
@@ -155,13 +156,5 @@ def main_frame(page: ft.Page):
         self.panel.SetSizer(self.hbox)"""
 
 
-def create_main_window(bases_list):
+def create_gui():
     ft.app(target=main_frame)
-
-    #for item in bases_list:
-    #    frame.list_bases.InsertItem(bases_list.index(item), item.name)
-
-    # из буфера обмена
-    # cb = root.clipboard_get()
-
-    #app.MainLoop()
