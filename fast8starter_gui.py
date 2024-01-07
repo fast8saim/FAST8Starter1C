@@ -157,4 +157,5 @@ def main_frame(page: ft.Page):
 
 
 def create_gui():
+    fast8starter_system.find_platform()
     ft.app(target=main_frame)

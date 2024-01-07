@@ -21,15 +21,6 @@ class V8Base:
         self.name = name.strip()
 
 
-def find_platform():
-    path = 'C:'
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            if file.endswith("1cv8.exe"):
-                path_file = os.path.join(root, file)
-                print(path_file)
-
-
 def parse_ibases(text):
     bases_list = []
 
