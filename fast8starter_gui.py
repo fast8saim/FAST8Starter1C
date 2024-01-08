@@ -3,6 +3,7 @@ import subprocess
 import fast8starter_system
 import fast8starter_v8
 
+
 def run_thin_client(event):
     subprocess.Popen('C:\\Windows\\System32\\calc.exe')
 
@@ -76,9 +77,9 @@ def run_clear_all_cache(event):
 
 
 def main_frame(page: ft.Page):
-
     page.title = 'FAST8 STARTER 1C'
     page.theme_mode = 'dark'
+    page.window_width = 500
 
     def create_label(label):
         return ft.Text(label)
@@ -88,56 +89,53 @@ def main_frame(page: ft.Page):
 
     bases_list = fast8starter_v8.parse_ibases(fast8starter_system.get_ibases_content())
 
-    bases_column = ft.Column()
-    buttons_column = ft.Column()
-
-    page.add(ft.Row(
-        [
-            bases_column, buttons_column
-        ])
-    )
+    bases_column = ft.ListView(expand=True, spacing=10, padding=20, auto_scroll=False, width=500)
+    page.add(bases_column)
 
     for item in bases_list:
         bases_column.controls.append(
-            ft.Card(
-                content=ft.Container(
-                    content=ft.Column(
-                        [
-                            ft.ListTile(
-                                leading=ft.Icon(ft.icons.HOME_WORK),
-                                title=ft.Text(item.name),
-                                subtitle=ft.Text(item.AppArch),
-                            ),
-                            ft.Row(
-                                [ft.TextButton("Run"), ft.TextButton("Configure")],
-                                alignment=ft.MainAxisAlignment.END,
-                            ),
-                        ]
-                    ),
-                    width=500, padding=5,
-                )
-            )
-        )
-
-    buttons_column.controls.append(create_label("Предприятие"))
-    buttons_column.controls.append(create_button("Тонкий клиент", run_thin_client))
-    buttons_column.controls.append(create_button("Толстый клиент", run_thick_client))
-    buttons_column.controls.append(create_button("Обычное приложение", run_legacy_client))
-    buttons_column.controls.append(create_label("Конфигуратор"))
-    buttons_column.controls.append(create_button("Конфигуратор", run_designer))
-    buttons_column.controls.append(create_button("Обновить из хранилища", run_update_from_storage))
-    buttons_column.controls.append(create_button("Сохранить конфигурацию", run_save_configuration))
-    buttons_column.controls.append(create_button("Загрузить конфигурацию", run_upload_configuration))
-    buttons_column.controls.append(create_button("Выгрузить в dt", run_save_dump))
-    buttons_column.controls.append(create_button("Загрузить из dt", run_upload_dump))
-    buttons_column.controls.append(create_button("Переподключить к хранилищу", run_reconnect_to_storage))
-    buttons_column.controls.append(create_button("Выгрузить расширения", run_save_extensions))
-    buttons_column.controls.append(create_button("Загрузить расширения", run_upload_extensions))
-    buttons_column.controls.append(create_label("Прочее"))
-    buttons_column.controls.append(create_button("Очистить кэш метаданных", run_clear_cache))
-    buttons_column.controls.append(create_button("Создать чистую базу", run_make_clean_base))
-    buttons_column.controls.append(create_button("Найти файловые базы", run_find_local_file_bases))
-    buttons_column.controls.append(create_button("Очистить весь локальный кэш", run_clear_all_cache))
+            ft.Column([
+                ft.Row([
+                    ft.Text(item.name)]),
+                ft.Row([
+                    ft.IconButton(icon=ft.icons.DOMAIN, icon_color=ft.colors.YELLOW, tooltip='Предприятие', on_click=run_thin_client),
+                    ft.IconButton(icon=ft.icons.HANDYMAN, icon_color=ft.colors.YELLOW, tooltip='Конфигуратор', on_click=run_designer),
+                    ft.IconButton(icon=ft.icons.MODE, icon_color=ft.colors.YELLOW, tooltip='Редактировать'),
+                    ft.Container(expand=True),
+                    ft.IconButton(icon=ft.icons.COPY, icon_color=ft.colors.YELLOW, tooltip='Копировать в буфер'),
+                    ft.PopupMenuButton(tooltip='Дополнительно',
+                                       items=[
+                                           ft.PopupMenuItem(content=ft.Text('Толстый клиент', color=ft.colors.YELLOW), on_click=run_thick_client),
+                                           ft.PopupMenuItem(text='Обычное приложение', on_click=run_legacy_client),
+                                           ft.PopupMenuItem(text='Обновить из хранилища',
+                                                            on_click=run_update_from_storage),
+                                           ft.PopupMenuItem(text='Сохранить конфигурацию',
+                                                            on_click=run_save_configuration),
+                                           ft.PopupMenuItem(text='Загрузить конфигурацию',
+                                                            on_click=run_upload_configuration),
+                                           ft.PopupMenuItem(text='Выгрузить в dt', on_click=run_save_dump),
+                                           ft.PopupMenuItem(text='Загрузить из dt', on_click=run_upload_dump),
+                                           ft.PopupMenuItem(text='Переподключить к хранилищу',
+                                                            on_click=run_reconnect_to_storage),
+                                           ft.PopupMenuItem(text='Выгрузить расширения', on_click=run_save_extensions),
+                                           ft.PopupMenuItem(text='Загрузить расширения',
+                                                            on_click=run_upload_extensions),
+                                           ft.PopupMenuItem(text='Очистить кэш метаданных', on_click=run_clear_cache)
+                                       ])
+                ])]))
+    page.bottom_appbar = ft.BottomAppBar(
+        bgcolor=ft.colors.BLUE_GREY_900,
+        width=500,
+        content=ft.Row([
+            ft.IconButton(icon=ft.icons.ADD, tooltip='Добавить новую базу'),
+            ft.Container(expand=True),
+            ft.IconButton(icon=ft.icons.ADD, icon_color=ft.colors.YELLOW, tooltip='Создать чистую базу', on_click=run_make_clean_base),
+            ft.IconButton(icon=ft.icons.FIND_IN_PAGE, icon_color=ft.colors.YELLOW, tooltip='Найти файловые базы',
+                          on_click=run_find_local_file_bases),
+            ft.IconButton(icon=ft.icons.DELETE, icon_color=ft.colors.YELLOW, tooltip='Очистить весь локальный кэш', on_click=run_clear_all_cache),
+            ft.IconButton(icon=ft.icons.SETTINGS, icon_color=ft.colors.YELLOW, tooltip='Настройки'),
+        ])
+    )
 
     page.update()
     """
@@ -157,5 +155,4 @@ def main_frame(page: ft.Page):
 
 
 def create_gui():
-    fast8starter_system.find_platform()
     ft.app(target=main_frame)

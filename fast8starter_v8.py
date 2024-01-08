@@ -27,8 +27,6 @@ def parse_ibases(text):
     item = None
     for line in text:
         if line.startswith("["):
-            if len(bases_list) == 4:
-                break
             if item is not None:
                 bases_list.append(item)
             item = V8Base(line.replace('[', '').replace(']', ''))
