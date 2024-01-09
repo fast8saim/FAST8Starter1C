@@ -13,3 +13,10 @@ class Base:
 
     def __init__(self):
         pass
+
+
+class Bases:
+    list = []
+
+    def __init__(self):
+        pass
