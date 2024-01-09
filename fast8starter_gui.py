@@ -90,50 +90,65 @@ def main_frame(page: ft.Page):
 
     bases_list = fast8starter_v8.parse_ibases(fast8starter_system.get_ibases_content())
 
-    bases_column = ft.ListView(expand=True, spacing=10, padding=20, auto_scroll=False, width=500)
+    bases_column = ft.ListView(expand=True, spacing=1, padding=1, auto_scroll=False, width=500)
     page.add(bases_column)
 
     for item in bases_list:
         bases_column.controls.append(
-            ft.Column([
-                ft.Row([
-                    ft.Text(item.name)]),
-                ft.Row([
-                    ft.IconButton(icon=ft.icons.DOMAIN, icon_color=ft.colors.YELLOW, tooltip='Предприятие', on_click=run_thin_client),
-                    ft.IconButton(icon=ft.icons.HANDYMAN, icon_color=ft.colors.YELLOW, tooltip='Конфигуратор', on_click=run_designer),
-                    ft.IconButton(icon=ft.icons.MODE, icon_color=ft.colors.YELLOW, tooltip='Редактировать'),
-                    ft.Container(expand=True),
-                    ft.IconButton(icon=ft.icons.COPY, icon_color=ft.colors.YELLOW, tooltip='Копировать в буфер'),
-                    ft.PopupMenuButton(tooltip='Дополнительно',
-                                       items=[
-                                           ft.PopupMenuItem(content=ft.Text('Толстый клиент', color=ft.colors.YELLOW), on_click=run_thick_client),
-                                           ft.PopupMenuItem(text='Обычное приложение', on_click=run_legacy_client),
-                                           ft.PopupMenuItem(text='Обновить из хранилища',
-                                                            on_click=run_update_from_storage),
-                                           ft.PopupMenuItem(text='Сохранить конфигурацию',
-                                                            on_click=run_save_configuration),
-                                           ft.PopupMenuItem(text='Загрузить конфигурацию',
-                                                            on_click=run_upload_configuration),
-                                           ft.PopupMenuItem(text='Выгрузить в dt', on_click=run_save_dump),
-                                           ft.PopupMenuItem(text='Загрузить из dt', on_click=run_upload_dump),
-                                           ft.PopupMenuItem(text='Переподключить к хранилищу',
-                                                            on_click=run_reconnect_to_storage),
-                                           ft.PopupMenuItem(text='Выгрузить расширения', on_click=run_save_extensions),
-                                           ft.PopupMenuItem(text='Загрузить расширения',
-                                                            on_click=run_upload_extensions),
-                                           ft.PopupMenuItem(text='Очистить кэш метаданных', on_click=run_clear_cache)
-                                       ])
-                ])]))
+            ft.Card(shape=ft.RoundedRectangleBorder(radius=2),
+                    content=ft.Column([
+                        ft.Row([
+                            ft.Text(item.name)]),
+                        ft.Row([
+                            ft.Text('')]),
+                        ft.Row([
+                            ft.IconButton(icon=ft.icons.DOMAIN, icon_color=ft.colors.YELLOW, tooltip='Предприятие',
+                                          on_click=run_thin_client),
+                            ft.IconButton(icon=ft.icons.HANDYMAN, icon_color=ft.colors.YELLOW, tooltip='Конфигуратор',
+                                          on_click=run_designer),
+                            ft.IconButton(icon=ft.icons.MODE, icon_color=ft.colors.YELLOW, tooltip='Редактировать'),
+                            ft.IconButton(icon=ft.icons.KEY, icon_color=ft.colors.YELLOW, tooltip='Доступ'),
+                            ft.IconButton(icon=ft.icons.TEXT_SNIPPET, icon_color=ft.colors.YELLOW, tooltip='Сценарий'),
+                            ft.Container(expand=True),
+                            ft.IconButton(icon=ft.icons.COPY, icon_color=ft.colors.YELLOW,
+                                          tooltip='Копировать в буфер'),
+                            ft.PopupMenuButton(tooltip='Дополнительно',
+                                               items=[
+                                                   ft.PopupMenuItem(
+                                                       content=ft.Text('Толстый клиент', color=ft.colors.YELLOW),
+                                                       on_click=run_thick_client),
+                                                   ft.PopupMenuItem(text='Обычное приложение',
+                                                                    on_click=run_legacy_client),
+                                                   ft.PopupMenuItem(text='Обновить из хранилища',
+                                                                    on_click=run_update_from_storage),
+                                                   ft.PopupMenuItem(text='Сохранить конфигурацию',
+                                                                    on_click=run_save_configuration),
+                                                   ft.PopupMenuItem(text='Загрузить конфигурацию',
+                                                                    on_click=run_upload_configuration),
+                                                   ft.PopupMenuItem(text='Выгрузить в dt', on_click=run_save_dump),
+                                                   ft.PopupMenuItem(text='Загрузить из dt', on_click=run_upload_dump),
+                                                   ft.PopupMenuItem(text='Переподключить к хранилищу',
+                                                                    on_click=run_reconnect_to_storage),
+                                                   ft.PopupMenuItem(text='Выгрузить расширения',
+                                                                    on_click=run_save_extensions),
+                                                   ft.PopupMenuItem(text='Загрузить расширения',
+                                                                    on_click=run_upload_extensions),
+                                                   ft.PopupMenuItem(text='Очистить кэш метаданных',
+                                                                    on_click=run_clear_cache)
+                                               ])
+                        ])])))
     page.bottom_appbar = ft.BottomAppBar(
         bgcolor=ft.colors.BLUE_GREY_900,
         width=500,
         content=ft.Row([
             ft.IconButton(icon=ft.icons.ADD, tooltip='Добавить новую базу'),
             ft.Container(expand=True),
-            ft.IconButton(icon=ft.icons.ADD, icon_color=ft.colors.YELLOW, tooltip='Создать чистую базу', on_click=run_make_clean_base),
+            ft.IconButton(icon=ft.icons.ADD, icon_color=ft.colors.YELLOW, tooltip='Создать чистую базу',
+                          on_click=run_make_clean_base),
             ft.IconButton(icon=ft.icons.FIND_IN_PAGE, icon_color=ft.colors.YELLOW, tooltip='Найти файловые базы',
                           on_click=run_find_local_file_bases),
-            ft.IconButton(icon=ft.icons.DELETE, icon_color=ft.colors.YELLOW, tooltip='Очистить весь локальный кэш', on_click=run_clear_all_cache),
+            ft.IconButton(icon=ft.icons.DELETE, icon_color=ft.colors.YELLOW, tooltip='Очистить весь локальный кэш',
+                          on_click=run_clear_all_cache),
             ft.IconButton(icon=ft.icons.SETTINGS, icon_color=ft.colors.YELLOW, tooltip='Настройки'),
         ])
     )
