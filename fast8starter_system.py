@@ -1,4 +1,5 @@
 import os
+import glob
 
 
 def get_ibases_content():
@@ -14,10 +15,10 @@ def get_ibases_content():
 
 
 def find_platform():
-    path = 'C:\\Program Files'
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            #if file.endswith("1cv8.exe"):
-            if file == '1cv8.exe':
-                path_file = os.path.join(root, file)
-                print(path_file)
+    paths = []
+    for res in glob.glob('c:\\Program Files\\**\\1cv8.exe', recursive=True):
+        paths.append(res)
+        print(res)
+
+    return paths
+
