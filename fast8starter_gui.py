@@ -1,11 +1,5 @@
 import flet as ft
-import subprocess
-import fast8starter_system
 from fast8starter_data import Bases, Platforms
-
-
-def run_thin_client(event):
-    subprocess.Popen('C:\\Windows\\System32\\calc.exe')
 
 
 def run_thick_client(event):
@@ -71,6 +65,11 @@ def run_clear_all_cache(event):
 class BasesList(ft.UserControl):
     page = None
     bases_column = None
+    platform = None
+
+    def run_thin_client(self, e):
+        base = e.control.data
+        base.run_client(self.platform)
 
     def copy_base_path(self, e):
         self.page.set_clipboard(value=e.control.data.connect)
@@ -85,12 +84,12 @@ class BasesList(ft.UserControl):
                 ft.Card(shape=ft.RoundedRectangleBorder(radius=4),
                         content=ft.Column([
                             ft.Row([
-                                ft.Text(f'  {base.name}')]),
+                                ft.Text(f' {bases.list.index(base) + 1}. {base.name}')]),
                             ft.Row([
                                 ft.Text(f'  {base.connect}')]),
                             ft.Row([
                                 ft.IconButton(icon=ft.icons.DOMAIN, icon_color=ft.colors.YELLOW, tooltip='Предприятие',
-                                              on_click=run_thin_client),
+                                              on_click=self.run_thin_client, data=base),
                                 ft.IconButton(icon=ft.icons.HANDYMAN, icon_color=ft.colors.YELLOW,
                                               tooltip='Конфигуратор',
                                               on_click=run_designer),
@@ -169,6 +168,7 @@ def main_frame(page: ft.Page):
     page.update()
     platforms = Platforms()
     platforms.fill()
+    bases_list.platform = platforms.default_platform
 
 
 def create_gui():

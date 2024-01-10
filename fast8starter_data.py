@@ -14,6 +14,9 @@ class Platforms:
     default_platform = None
     list = []
 
+    def sort(self):
+        self.list.sort(key=lambda e: e.version)
+
     def __init__(self):
         self.list = []
 
@@ -22,6 +25,9 @@ class Platforms:
         for entry in entries:
             platform = Platform(entry)
             self.list.append(platform)
+
+        self.sort()
+        self.default_platform = self.list[len(self.list) - 1]
 
 
 class Base:
@@ -41,6 +47,9 @@ class Base:
     app_arch = 'x86_64'
     additional_parameters = ''
 
+    def run_client(self, platform: Platform):
+        fast8starter_system.run_process(f'{platform.version} ENTERPRISE /F {self.connect} /DisableStartupDialogs')
+
     def __init__(self, name):
         self.name = name.strip()
 
@@ -59,7 +68,6 @@ class Base:
         self.default_version = entry.get('default_version')
         self.app_arch = entry.get('app_arch')
         self.additional_parameters = entry.get('additional_parameters')
-
 
 class Bases:
     list = []

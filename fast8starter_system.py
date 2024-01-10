@@ -1,5 +1,10 @@
 import os
 import glob
+import subprocess
+
+
+def run_process(url):
+    subprocess.Popen(url)
 
 
 def get_ibases_content():
