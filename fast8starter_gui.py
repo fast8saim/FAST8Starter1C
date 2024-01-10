@@ -144,7 +144,7 @@ def main_frame(page: ft.Page):
     page.title = 'FAST8 STARTER 1C'
     page.theme_mode = 'dark'
     page.window_width = 500
-    page.window_opacity = 0.75
+    page.window_opacity = 0.8
 
     bases_list = BasesList(page)
     bases_list.fill()

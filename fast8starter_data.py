@@ -54,20 +54,34 @@ class Base:
         self.name = name.strip()
 
     def fill(self, entry: dict):
-        self.base_id = entry.get('base_id')
-        self.order_in_list = entry.get('order_in_list')
-        self.folder = entry.get('folder')
-        self.order_in_tree = entry.get('order_in_tree')
-        self.external = entry.get('external')
-        self.connect = entry.get('connect')
-        self.ref = entry.get('ref')
-        self.client_connection_speed = entry.get('client_connection_speed')
-        self.app = entry.get('app')
-        self.wa = entry.get('wa')
-        self.version = entry.get('version')
-        self.default_version = entry.get('default_version')
-        self.app_arch = entry.get('app_arch')
-        self.additional_parameters = entry.get('additional_parameters')
+        if 'base_id' in entry:
+            self.base_id = entry.get('base_id')
+        if 'order_in_list' in entry:
+            self.order_in_list = entry.get('order_in_list')
+        if 'folder' in entry:
+            self.folder = entry.get('folder')
+        if 'order_in_tree' in entry:
+            self.order_in_tree = entry.get('order_in_tree')
+        if 'external' in entry:
+            self.external = entry.get('external')
+        if 'connect' in entry:
+            self.connect = entry.get('connect')
+        if 'ref' in entry:
+            self.ref = entry.get('ref')
+        if 'client_connection_speed' in entry:
+            self.client_connection_speed = entry.get('client_connection_speed')
+        if 'app' in entry:
+            self.app = entry.get('app')
+        if 'wa' in entry:
+            self.wa = entry.get('wa')
+        if 'version' in entry:
+            self.version = entry.get('version')
+        if 'default_version' in entry:
+            self.default_version = entry.get('default_version')
+        if 'app_arch' in entry:
+            self.app_arch = entry.get('app_arch')
+        if 'additional_parameters' in entry:
+            self.additional_parameters = entry.get('additional_parameters')
 
 class Bases:
     list = []
