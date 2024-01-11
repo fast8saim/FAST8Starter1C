@@ -46,9 +46,11 @@ class Base:
     default_version = '8.3'
     app_arch = 'x86_64'
     additional_parameters = ''
+    is_file = False
+    connection_string = ''
 
     def run_client(self, platform: Platform):
-        fast8starter_system.run_process(f'{platform.version} ENTERPRISE /F {self.connect} /DisableStartupDialogs')
+        fast8starter_system.run_process(f'{platform.version} ENTERPRISE {self.connection_string}')
 
     def __init__(self, name):
         self.name = name.strip()
@@ -82,6 +84,15 @@ class Base:
             self.app_arch = entry.get('app_arch')
         if 'additional_parameters' in entry:
             self.additional_parameters = entry.get('additional_parameters')
+
+        if self.connect:
+            self.is_file = True if self.connect.startswith('File=') else False
+            if self.is_file:
+                self.connection_string = self.connect[6:-2].strip()
+            else:
+                ref_pos = self.connect.find('Ref=')
+                self.connection_string = f'/S {self.connect[6:ref_pos - 2]}\\{self.connect[ref_pos + 5:-2]}'
+
 
 class Bases:
     list = []

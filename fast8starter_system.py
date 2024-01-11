@@ -4,6 +4,7 @@ import subprocess
 
 
 def run_process(url):
+    print(url)
     subprocess.Popen(url)
 
 
