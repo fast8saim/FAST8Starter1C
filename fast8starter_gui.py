@@ -62,10 +62,22 @@ def run_clear_all_cache(event):
     print('ClearAllCache')
 
 
+class AccessDialog(ft.UserControl):
+    page = None
+    base = None
+
+    def __init__(self, page: ft.Page):
+        super.__init__()
+        self.page = page
+
+
 class BasesList(ft.UserControl):
     page = None
     bases_column = None
     platform = None
+
+    def open_access(self, e):
+        pass
 
     def run_thin_client(self, e):
         base = e.control.data
@@ -94,7 +106,7 @@ class BasesList(ft.UserControl):
                                               tooltip='Конфигуратор',
                                               on_click=run_designer),
                                 ft.IconButton(icon=ft.icons.MODE, icon_color=ft.colors.YELLOW, tooltip='Редактировать'),
-                                ft.IconButton(icon=ft.icons.KEY, icon_color=ft.colors.YELLOW, tooltip='Доступ'),
+                                ft.IconButton(icon=ft.icons.KEY, icon_color=ft.colors.YELLOW, tooltip='Доступ', data=base, on_click=self.open_access),
                                 ft.IconButton(icon=ft.icons.TEXT_SNIPPET, icon_color=ft.colors.YELLOW,
                                               tooltip='Сценарий'),
                                 ft.Container(expand=True),

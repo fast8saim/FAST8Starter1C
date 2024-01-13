@@ -1,5 +1,7 @@
 import fast8starter_system
 
+KEY_PASS = '123'
+
 
 class Platform:
     version = ''
