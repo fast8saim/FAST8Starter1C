@@ -2,72 +2,12 @@ import flet as ft
 from fast8starter_data import Bases, Platforms
 
 
-def run_thick_client(event):
-    print('ThickClient')
-
-
-def run_legacy_client(event):
-    print('LegacyClient')
-
-
-def run_designer(event):
-    print('Designer')
-
-
-def run_update_from_storage(event):
-    print('UpdateFromStorage')
-
-
-def run_save_configuration(event):
-    print('SaveConfiguration')
-
-
-def run_upload_configuration(event):
-    print('UploadConfiguration')
-
-
-def run_save_dump(event):
-    print('SaveDump')
-
-
-def run_upload_dump(event):
-    print('UploadDump')
-
-
-def run_reconnect_to_storage(event):
-    print('ReconnectToStorage')
-
-
-def run_save_extensions(event):
-    print('SaveExtensions')
-
-
-def run_upload_extensions(event):
-    print('UploadExtensions')
-
-
-def run_clear_cache(event):
-    print('ClearCache')
-
-
-def run_make_clean_base(event):
-    print('MakeCleanBase')
-
-
-def run_find_local_file_bases(event):
-    print('FindLocalFileBases')
-
-
-def run_clear_all_cache(event):
-    print('ClearAllCache')
-
-
 class AccessDialog(ft.UserControl):
     page = None
     base = None
 
     def __init__(self, page: ft.Page):
-        super.__init__()
+        super().__init__()
         self.page = page
 
 
@@ -75,6 +15,42 @@ class BasesList(ft.UserControl):
     page = None
     bases_column = None
     platform = None
+
+    def run_thick_client(self, e):
+        print('ThickClient')
+
+    def run_legacy_client(self, e):
+        print('LegacyClient')
+
+    def run_designer(self, e):
+        print('Designer')
+
+    def run_update_from_storage(self, e):
+        print('UpdateFromStorage')
+
+    def run_save_configuration(self, e):
+        print('SaveConfiguration')
+
+    def run_upload_configuration(self, e):
+        print('UploadConfiguration')
+
+    def run_save_dump(self, e):
+        print('SaveDump')
+
+    def run_upload_dump(self, e):
+        print('UploadDump')
+
+    def run_reconnect_to_storage(self, e):
+        print('ReconnectToStorage')
+
+    def run_save_extensions(self, e):
+        print('SaveExtensions')
+
+    def run_upload_extensions(self, e):
+        print('UploadExtensions')
+
+    def run_clear_cache(self, e):
+        print('ClearCache')
 
     def open_access(self, e):
         pass
@@ -104,7 +80,7 @@ class BasesList(ft.UserControl):
                                               on_click=self.run_thin_client, data=base),
                                 ft.IconButton(icon=ft.icons.HANDYMAN, icon_color=ft.colors.YELLOW,
                                               tooltip='Конфигуратор',
-                                              on_click=run_designer),
+                                              on_click=self.run_designer),
                                 ft.IconButton(icon=ft.icons.MODE, icon_color=ft.colors.YELLOW, tooltip='Редактировать'),
                                 ft.IconButton(icon=ft.icons.KEY, icon_color=ft.colors.YELLOW, tooltip='Доступ', data=base, on_click=self.open_access),
                                 ft.IconButton(icon=ft.icons.TEXT_SNIPPET, icon_color=ft.colors.YELLOW,
@@ -116,26 +92,26 @@ class BasesList(ft.UserControl):
                                                    items=[
                                                        ft.PopupMenuItem(
                                                            content=ft.Text('Толстый клиент', color=ft.colors.YELLOW),
-                                                           on_click=run_thick_client),
+                                                           on_click=self.run_thick_client),
                                                        ft.PopupMenuItem(text='Обычное приложение',
-                                                                        on_click=run_legacy_client),
+                                                                        on_click=self.run_legacy_client),
                                                        ft.PopupMenuItem(text='Обновить из хранилища',
-                                                                        on_click=run_update_from_storage),
+                                                                        on_click=self.run_update_from_storage),
                                                        ft.PopupMenuItem(text='Сохранить конфигурацию',
-                                                                        on_click=run_save_configuration),
+                                                                        on_click=self.run_save_configuration),
                                                        ft.PopupMenuItem(text='Загрузить конфигурацию',
-                                                                        on_click=run_upload_configuration),
-                                                       ft.PopupMenuItem(text='Выгрузить в dt', on_click=run_save_dump),
+                                                                        on_click=self.run_upload_configuration),
+                                                       ft.PopupMenuItem(text='Выгрузить в dt', on_click=self.run_save_dump),
                                                        ft.PopupMenuItem(text='Загрузить из dt',
-                                                                        on_click=run_upload_dump),
+                                                                        on_click=self.run_upload_dump),
                                                        ft.PopupMenuItem(text='Переподключить к хранилищу',
-                                                                        on_click=run_reconnect_to_storage),
+                                                                        on_click=self.run_reconnect_to_storage),
                                                        ft.PopupMenuItem(text='Выгрузить расширения',
-                                                                        on_click=run_save_extensions),
+                                                                        on_click=self.run_save_extensions),
                                                        ft.PopupMenuItem(text='Загрузить расширения',
-                                                                        on_click=run_upload_extensions),
+                                                                        on_click=self.run_upload_extensions),
                                                        ft.PopupMenuItem(text='Очистить кэш метаданных',
-                                                                        on_click=run_clear_cache)
+                                                                        on_click=self.run_clear_cache)
                                                    ])
                             ])])))
         self.page.update()
@@ -157,6 +133,15 @@ def main_frame(page: ft.Page):
     page.theme_mode = 'dark'
     page.window_width = 500
     page.window_opacity = 0.8
+
+    def run_make_clean_base(event):
+        print('MakeCleanBase')
+
+    def run_find_local_file_bases(event):
+        print('FindLocalFileBases')
+
+    def run_clear_all_cache(event):
+        print('ClearAllCache')
 
     bases_list = BasesList(page)
     bases_list.fill()
