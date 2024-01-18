@@ -5,10 +5,19 @@ from fast8starter_data import Bases, Platforms
 class AccessDialog(ft.UserControl):
     page = None
     base = None
+    dialog = None
 
     def __init__(self, page: ft.Page):
         super().__init__()
         self.page = page
+        self.controls = self.build()
+
+    def build(self):
+        self.dialog = ft.AlertDialog()
+        self.dialog.open = True
+        data_table = ft.DataTable()
+        self.dialog.content = data_table
+        return data_table
 
 
 class BasesList(ft.UserControl):
