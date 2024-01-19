@@ -7,9 +7,13 @@ class AccessDialog(ft.UserControl):
     base = None
     dialog = None
 
-    def __init__(self, page: ft.Page):
+    def fill(self):
+        pass
+
+    def __init__(self, page: ft.Page, base):
         super().__init__()
         self.page = page
+        self.base = base
         self.controls = self.build()
 
     def build(self):
