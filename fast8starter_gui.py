@@ -15,12 +15,13 @@ class AccessDialog(ft.UserControl):
         self.page = page
         self.base = base
         self.controls = self.build()
+        self.page.update()
 
     def build(self):
-        self.dialog = ft.AlertDialog()
-        self.dialog.open = True
         data_table = ft.DataTable()
-        self.dialog.content = data_table
+        self.dialog = ft.AlertDialog(title=ft.Text('Доступы к базе'), content=data_table, modal=True)
+        self.page.dialog = self.dialog
+        self.dialog.open = True
         return data_table
 
 
@@ -66,7 +67,7 @@ class BasesList(ft.UserControl):
         print('ClearCache')
 
     def open_access(self, e):
-        pass
+        AccessDialog(page=self.page, base=e.control.data)
 
     def run_thin_client(self, e):
         base = e.control.data
